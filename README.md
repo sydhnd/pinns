@@ -122,7 +122,7 @@ The math for PDEs gets a lot more involved (check the implementation for the ful
  
 ```python
 self.net = nn.Sequential(
-    nn.Linear(1, 32),
+    nn.Linear(2, 32),
     nn.Tanh(),
     nn.Linear(32, 32),
     nn.Tanh(),
@@ -184,8 +184,8 @@ $$\mathcal{R}(x_i, t_i; \hat{\alpha}) = \frac{\partial \hat{u}}{\partial t}(x_i,
 
 ---
 
-# Additional disussion
- 
+# discussion
+
 ### Activation function
 
 unlike standard deep learning test `ReLU` fails in PINNs.
@@ -201,8 +201,8 @@ evaluate to zero almost everywherel t^2}$, evaluate to zero almost everywhere.
  
 ### Python autograd
  
-In standard machine learning, PyTorch throws away the computational graph by default immediately after loss.backward() to save GPU memory. In PINNS are differentiating the same network output so create_graph=True and retain_graph=True will save it to GPU.
- 
+In standard machine learning, PyTorch throws away the computational graph by default immediately after loss.backward() to save GPU memory. In PINNS are differentiating the same network output so create_graph=True keeps the computation graph alive so it can be differentiated again, which means the intermediate activations stay in memory (VRAM if the model is on GPU) instead of being freed after the backward pass.
+
 ```python
 # 1st Temporal Derivative: du/dt
 u_t = torch.autograd.grad(

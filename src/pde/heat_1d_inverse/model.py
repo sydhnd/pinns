@@ -69,7 +69,6 @@ for epoch in range(3000):
     residual_pde = du_dt - model.alpha_learned * d2u_dx2
     loss_pde = torch.mean(residual_pde ** 2)
 
-    residual_pde = du_dt - model.alpha_learned * d2u_dx2
 
     # calculate loss_ic
     N_ic = 200
@@ -90,7 +89,7 @@ for epoch in range(3000):
     optimizer.step()
     if epoch % 500 == 0:
         print(f"Epoch {epoch:4d} | PDE Loss: {loss_pde.item():.6f} | "
-            f"Data Loss: {loss_ic.item():.6f} | "
+            f"Data Loss: {loss_data():.6f} | "
             f"Learned Alpha: {model.alpha_learned.item():.4f} (Target: {REAL_ALPHA_VALUE})")
 
 

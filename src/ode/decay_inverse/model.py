@@ -29,7 +29,7 @@ model = InverseDecayPINN()
 # Inital value
 u0 = 10
 
-# calculated observed value at t = 30 mins, t = 60 mins t = 2 hours t = 3 hours
+# calculated observed value 
 t_obs = torch.tensor([[0.0], [1.0], [1.5], [2.0], [3.0],[14.0]], requires_grad=False)
 u_obs = u0 * torch.exp(REAL_K_SODIUM24 * t_obs)
 
